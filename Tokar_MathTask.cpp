@@ -3,16 +3,13 @@
 using namespace std;
 
 int main() {
-  int NumberA = 0, NumberB = 0;
-  // Input variable A
-  EnterDigit(NumberA, "Input height A");
-  // Input variable B
-  EnterDigit(NumberB, "Input height B");
-  // Calculate the area of the rectangle
-  int RectangleArea = CalcRectangleArea(NumberA, NumberB);
-  // Output the area
-  cout << "Area of Rectangle is " << RectangleArea << endl;
-  // Process the array
-  ProcessArray();
+  int N = EnterInteger("Enter the number of elements in the array: ");
+  vector<int> arr = EnterArray(N);
+  int sum = 0;
+  double average = 0.0;
+  CalculateSumAndAverage(arr, sum, average);
+  cout << "The sum of the elements of the array: " << sum << endl;
+  cout << "The arithmetic mean of the elements of the array: " << average
+       << endl;
   return 0;
 }

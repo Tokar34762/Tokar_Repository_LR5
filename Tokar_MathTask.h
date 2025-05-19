@@ -1,60 +1,53 @@
 #ifndef _SURNAME_MATHTASK_H_
 #define _SURNAME_MATHTASK_H_
+
 #include <iostream>
 #include <numeric> // for std::accumulate
 #include <string>
 #include <vector>
 
 using namespace std;
-// Function to validate user input
+// 1. Функция контроля ввода целого числа (возвращает bool)
 bool UserInput(const string &input) {
-  // If the string is empty, the input is invalid
   if (input.empty())
     return false;
-  // Try to convert the input to an integer
   try {
     stoi(input);
-  } catch (...) { // If an error occurs, the input is invalid
+  } catch (...) {
     return false;
   }
   return true;
 }
 
-void EnterDigit(int &varLink, const string &label) {
+// 2. Функция ввода целого числа с обработкой ввода
+int EnterInteger(const string &label) {
   string raw_input;
-  cout << label << " = ";
+  cout << label << ": ";
   getline(cin, raw_input);
   while (!UserInput(raw_input)) {
-    cout << "Invalid input. " << label << " = ";
+    cout << "Incorrect input. " << label << ": ";
     getline(cin, raw_input);
   }
-  varLink = stoi(raw_input);
+  return stoi(raw_input);
 }
-// Method to calculate the area of a rectangle
-int CalcRectangleArea(int NumberA, int NumberB) { return NumberA * NumberB; }
-
-void ProcessArray() {
-  int N;
-  cout << "Enter the size of the array (N): ";
-  cin >> N;
-  // Create a vector to hold the array elements
+// 3. Функция для ввода массива из N целых чисел
+vector<int> EnterArray(int N) {
   vector<int> arr(N);
-  cout << "Enter " << N << " integers:" << endl;
   for (int i = 0; i < N; ++i) {
-    string input;
-    cin >> input;
-    while (!UserInput(input)) {
-      cout << "Invalid input. Enter an integer: ";
-      cin >> input;
-    }
-    arr[i] = stoi(input);
+    arr[i] = EnterInteger("Enter array element [" + to_string(i) + "]");
   }
-  // Calculate the sum of the array elements
-  int sum = accumulate(arr.begin(), arr.end(), 0);
-  // Calculate the average
-  double average = static_cast<double>(sum) / N;
-  // Output the results
-  cout << "Sum of array elements: " << sum << endl;
-  cout << "Average of array elements: " << average << endl;
+  return arr;
 }
+
+void CalculateSumAndAverage(const vector<int> &arr, int &sum, double &average) {
+  sum = 0;
+  average = 0.0; // Инициализируем среднее значение
+  if (!arr.empty()) { // Проверяем, не пуст ли массив
+    for (int val : arr) {
+      sum += val; // Суммируем элементы
+    }
+    average = (double)sum / arr.size(); // Преобразуем sum в double при делении
+  }
+}
+
 #endif
