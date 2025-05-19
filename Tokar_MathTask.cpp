@@ -1,5 +1,4 @@
 #include "Tokar_MathTask.h"
-
 using namespace std;
 
 int main() {
