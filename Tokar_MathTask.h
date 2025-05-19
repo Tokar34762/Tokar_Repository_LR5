@@ -11,10 +11,16 @@ using namespace std;
 bool UserInput(const string &input) {
   if (input.empty())
     return false;
-  try {
-    stoi(input);
-  } catch (...) {
-    return false;
+  // Проверка на наличие знака минус в начале
+  if (input[0] == '-') {
+    return false; // Отрицательные значения не допускаются
+  }
+  // Проверка, является ли строка числом
+  for (char c : input) {
+    if (!isdigit(c)) {
+      return false; // Если есть хотя бы один нецифровой символ, возвращаем
+                    // false
+    }
   }
   return true;
 }
